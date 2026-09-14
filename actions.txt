@@ -1,0 +1,161 @@
+BIOBUZZ — ACTION LIST
+BioBuzz 2026-27   generated from js/defaults.js
+
+Robot carries 4 at a time, pre-loaded with 4 x POLLEN.
+Match: 0s AUTO + 0s transition + 120s TELEOP; last 60s is the FLOWER window.
+
+(measure) = a guess. Time it at your first practice.
+==============================================================================
+
+Intake POLLEN – our GARDEN
+  id            pollen_garden
+  where         GARDEN – blue  (11.5, 129.71)
+  takes         0.8 s  +/- 0.15
+  misses        0%  costing 0.0 s,  0 retries
+  real cost     0.80 s each, driving not included
+  scores        0 pts
+  effect        picks up 4 x POLLEN
+  legal in      teleop, endgame   max 1x per match
+  note          Measured 0.8 s for all 4. Only 4 are staged here (§10.3.1), so this is a one-shot per match.
+
+Intake POLLEN – off the ground
+  id            pollen_ground
+  where         Loose POLLEN – their WEST zone  (28.5, 59)  ZONE 26x22 in
+  takes         0.0 s  +/- 0.00   + chases the ball ~22 in
+  misses        0%  costing 0.0 s,  0 retries
+  real cost     0.00 s each, driving not included
+  scores        0 pts
+  effect        picks up 4 x POLLEN
+  legal in      teleop, endgame   unlimited
+  note          Drives to the NEAREST of the four spill zones that actually has POLLEN in it — our two launch zones (where RED’s CELLS empty) and their two (where ours empty). No side is fixed in advance. No dwell time — you intake while driving. The only cost is crossing the zone, modelled as ~22 in of sweeping (the zone is 26 in wide). Set wanderIn to 0 if you can grab all 4 without deviating. Uncapped: 40 POLLEN exist and they recycle every time a HIVE tips, so in practice time is the limit, not supply.
+
+Intake POLLEN – FLOWER
+  id            pollen_flower
+  where         FLOWER north – robot spot  (47.17, 127.5)
+  takes         1.5 s  +/- 0.25
+  misses        0%  costing 0.0 s,  0 retries
+  real cost     1.50 s each, driving not included
+  scores        0 pts
+  effect        picks up 4 x POLLEN
+  legal in      teleop, endgame   max 1x per match
+  note          Measured 1.5 s to empty a FLOWER of all 4. Duplicate this action per FLOWER you plan to work.
+
+Intake NECTAR – LOADING ZONE
+  id            nectar_loading
+  where         LOADING ZONE – blue  (106.12, 130.5)
+  takes         0.8 s  +/- 0.15
+  misses        0%  costing 0.0 s,  0 retries
+  real cost     0.80 s each, driving not included
+  scores        0 pts
+  effect        picks up 4 x NECTAR (ours)
+  legal in      teleop, endgame   max 2x per match
+  note          Measured 0.8 s for a full load. NOTE: your list said "gets 4 pollen" for this one — read as 4 NECTAR. 8 NECTAR exist per alliance, hence 2 loads. The human player may only enter 1 per HIVE TIP until 60 s are left.
+
+Shoot POLLEN into CELL
+  id            shoot_pollen
+  where         Launch zone – our WEST cell  (34.5, 84)  ZONE 26x22 in
+  takes         0.3 s  +/- 0.06
+  misses        4%  costing 0.3 s,  2 retries
+  real cost     0.32 s each, driving not included
+  scores        0 pts
+  effect        uses 4 x POLLEN
+  legal in      teleop, endgame   unlimited
+  note          Measured 0.3 s per POLLEN, 4% miss, rolled per ball. Fires a burst of up to 4 — whatever is on board. Automatically drives to whichever launch zone covers the CELL that is currently face up, because the HIVE is a seesaw and you cannot launch into the down one. Turret-fired, so the time comes off the next drive. 8 of them TIPS the HIVE for 20. Scores nothing by itself — whatever is still in the CELL at the buzzer is 2 each.
+
+Shoot NECTAR into CELL
+  id            shoot_nectar
+  where         Launch zone – our WEST cell  (34.5, 84)  ZONE 26x22 in
+  takes         0.3 s  +/- 0.06
+  misses        6%  costing 0.3 s,  2 retries
+  real cost     0.34 s each, driving not included
+  scores        0 pts
+  effect        uses 4 x NECTAR (ours)
+  legal in      teleop, endgame   unlimited
+  note          Measured 0.3 s, 6% miss, rolled per ball. Burst of up to 4, and follows the live CELL like the POLLEN shot. Only 5 NECTAR TIPS it against 8 POLLEN. But a NECTAR is worth ~15 in a FLOWER, so 5 spent here costs roughly 75 points to buy a 20 point TIP — worth it only when you need the POLLINATOR RP.
+
+Put NECTAR in north FLOWER
+  id            flower_nectar_n
+  where         FLOWER north – robot spot  (47.17, 127.5)
+  takes         2.2 s  +/- 0.50
+  misses        12%  costing 1.0 s,  2 retries
+  real cost     2.58 s each, driving not included
+  scores        15 pts   [tag: flower]
+  effect        uses 1 x NECTAR (ours)
+  legal in      endgame   max 1x per match
+  note          (measure) G410: NECTAR may not enter a FLOWER until the last 60 s. Bottom NECTAR Bonus 5, plus ownership of the 4 staged POLLEN and this NECTAR at 2 each = 15. Drops to 2 if red covers it.
+
+Put NECTAR in east FLOWER
+  id            flower_nectar_e
+  where         FLOWER east – robot spot  (127.5, 94.33)
+  takes         2.2 s  +/- 0.50
+  misses        12%  costing 1.0 s,  2 retries
+  real cost     2.58 s each, driving not included
+  scores        15 pts   [tag: flower]
+  effect        uses 1 x NECTAR (ours)
+  legal in      endgame   max 1x per match
+  note          (measure) The other FLOWER on our side.
+
+Put POLLEN in north FLOWER
+  id            flower_pollen_n
+  where         FLOWER north – robot spot  (47.17, 127.5)
+  takes         1.6 s  +/- 0.40
+  misses        10%  costing 0.8 s,  2 retries
+  real cost     1.84 s each, driving not included
+  scores        2 pts   [tag: flower]
+  effect        uses 1 x POLLEN
+  legal in      teleop, endgame   unlimited
+  note          (measure) Worth 2 only if we end up owning this FLOWER, 0 if not. POLLEN may go in any time — only NECTAR is held to the last 60 s.
+
+Drop element in our GARDEN
+  id            garden_deposit
+  where         GARDEN – blue  (11.5, 129.71)
+  takes         0.9 s  +/- 0.25
+  misses        5%  costing 0.5 s,  1 retries
+  real cost     0.97 s each, driving not included
+  scores        1 pts   [tag: garden]
+  effect        uses 1 x POLLEN
+  legal in      teleop, endgame   unlimited
+  note          (measure) 1 pt each, unprotected — either alliance may take them back out.
+
+PARK in LOADING ZONE (end)
+  id            park_teleop
+  where         LOADING ZONE – blue  (106.12, 130.5)
+  takes         0.4 s  +/- 0.15
+  misses        3%  costing 0.4 s,  1 retries
+  real cost     0.42 s each, driving not included
+  scores        5 pts   [tag: swarm]
+  effect        state -> parked
+  legal in      teleop, endgame   max 1x per match
+  note          Assessed at the end of the MATCH. Counts toward the SWARM RP.
+
+==============================================================================
+RANKING POINTS  (the 3 RP for a WIN and 1 for a TIE are not modelled)
+
+POLLINATOR 1 — 4 HIVE TIPS
+  needs         4x  "tip"
+  worth         1 RP,  priority 8 (0 = never change the plan, 10 = outranks all)
+  note          Table 10-3: 4 TIPS at events other than Regional/FIRST Championship. Counts TIPS from any launch position. For reference, the RP not modelled here are WIN (3) and TIE (1) — both depend on the other alliance.
+
+POLLINATOR 2 — 7 HIVE TIPS
+  needs         7x  "tip"
+  worth         1 RP,  priority 6 (0 = never change the plan, 10 = outranks all)
+  note          Table 10-3: 7 TIPS. Stacks with POLLINATOR 1.
+
+SWARM — 16 LEAVE + PARK points
+  needs         16 pts tagged "swarm"
+  worth         1 RP,  priority 0 (0 = never change the plan, 10 = outranks all)
+  note          TURNED OFF because it cannot be earned here. With AUTO modelled a single robot maxes out at 13 (LEAVE 3 + AUTO PARK 5 + TELEOP PARK 5) against a threshold of 16 — already impossible alone. Teleop-only leaves just the 5 point TELEOP PARK. Re-enable it if you add AUTO back and want to see the shortfall.
+
+==============================================================================
+LOCATIONS
+  Start – west wall                  (2     , 84    )  start    face 0deg
+  LOADING ZONE – blue                (106.12, 130.5 )  source   face 90deg
+  GARDEN – blue                      (11.5  , 129.71)  score    face 180deg
+  Launch zone – our WEST cell        (34.5  , 84    )  other    ZONE 26x22  face 0deg
+  Launch zone – our EAST cell        (113   , 82.5  )  other    ZONE 26x22  face -180deg
+  Loose POLLEN – their WEST zone     (28.5  , 59    )  source   ZONE 26x22  face 0deg
+  Loose POLLEN – their EAST zone     (107   , 57.5  )  source   ZONE 26x22  face 180deg
+  FLOWER north – robot spot          (47.17 , 127.5 )  score    face 90deg
+  FLOWER east – robot spot           (127.5 , 94.33 )  score    face 0deg
+  FLOWER south – robot spot          (94.33 , 14    )  score    face -90deg
+  FLOWER west – robot spot           (14    , 47.17 )  score    face 180deg

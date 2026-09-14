@@ -1,0 +1,18 @@
+# macOS
+.DS_Store
+
+# The Pedro Pathing Visualizer is a separate project with its own git history
+# (Apache 2.0, github.com/manaflow-ai). It lives here as a local reference for
+# field coordinates — it is not part of this project and must not be vendored.
+/Visualizer/
+
+# FIRST's competition manual is their copyrighted document. Download it from
+# firstinspires.org rather than redistributing it here.
+*.pdf
+
+# Local scratch
+/tmp/
+*.log
+
+# the app uses assets/biobuzz.webp; this is the original upload
+/biobuzz.webp

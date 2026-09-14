@@ -1,0 +1,11 @@
+{
+  "name": "ftc-strategy-lab",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "FTC match strategy simulator, comparator and replay viewer.",
+  "scripts": {
+    "start": "python3 serve.py 8734",
+    "smoke": "node tools/smoke.mjs"
+  }
+}

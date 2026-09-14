@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FTC Strategy Lab</title>
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="mark"></span>
+      <span>FTC Strategy Lab</span>
+      <span class="game-name" id="gameName">—</span>
+    </div>
+    <nav class="tabs" id="tabs"></nav>
+    <div class="top-actions">
+      <button class="btn ghost" id="btnExport" title="Save the whole configuration to a .json file">Export</button>
+      <button class="btn ghost" id="btnImport" title="Load a configuration .json file">Import</button>
+      <button class="btn ghost danger" id="btnReset" title="Throw away everything and start from the blank template">Reset</button>
+      <input type="file" id="fileInput" accept="application/json,.json" hidden>
+    </div>
+  </header>
+  <main id="app"></main>
+  <div id="toast" class="toast" hidden></div>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
