@@ -7,72 +7,34 @@ wins and by how much.
 
 ## Running it
 
-Double-click **`start.command`** (or run `./start.command` in a terminal). It
-serves the folder on <http://localhost:8734> and opens your browser. Nothing to
-install: no npm, no build step, no internet. The server sends no-cache headers,
-so editing a file and hitting reload always shows the edit.
+**Windows** — double-click **`start.bat`**.
+**macOS / Linux** — double-click **`start.command`** (or `./start.command`).
 
-> It has to be served rather than opened as a file — browsers refuse to load
-> JavaScript modules straight off `file://`.
+Either one serves the folder on <http://localhost:8734> and opens your browser.
+Leave the black window open while you use the app; closing it stops the server.
+
+It needs **Python or Node** — whichever you already have, the launcher finds it.
+Most people have one; if not, the launcher tells you where to get them. On
+Windows, tick **"Add python.exe to PATH"** in the Python installer.
+
+> Why a server at all? A browser refuses to load JavaScript modules over
+> `file://`, so opening `index.html` directly will not work. The server also
+> sends no-cache headers, so editing a file and hitting reload always shows the
+> edit instead of a stale copy.
+
+If port 8734 is already taken, pass another: `start.bat 8735`, or
+`./start.command 8735`.
 
 Your configuration saves to the browser automatically. **Export** writes it to a
 `.json` file you can commit to Git or hand to a teammate; **Import** loads one
-back.
+back. Note that the browser storage is per-machine — your teammates each get the
+defaults from `js/defaults.js` until you send them an export.
 
 New to it? The **Help** tab explains the whole thing, including a step-by-step
 setup walkthrough and the actual maths with your robot's numbers plugged in.
 
 Check it without the browser: `node tools/smoke.mjs` (engine) and
 `node tools/dom-smoke.mjs` (renders every page against a DOM stub).
-
-## The tabs
-
-| Tab | What it is for | Editable? |
-|---|---|---|
-| **Field** | Where everything is and how big it is. Drag things around; set shape and size in the tables. The route checker shows the path the robot will really take. | yes |
-| **Robot** | Drivetrain, weight, size. Everything else is derived — top speed, strafe speed, acceleration, turn time. Also the run-to-run variation knobs. | yes |
-| **Actions** | Every verb the robot can do: how long, how often it misses, what it is worth. Plus elements and ranking-point rules. | read-only, except RP priority |
-| **Strategies** | A list of steps, plus rules that can interrupt them. | yes |
-| **Compare** | Plays every strategy N times and ranks them: mean points ± spread, ranking points, and whether the gap between the top two is real or just noise. | — |
-| **Optimize** | Brute-forces the obvious cycling plans (which source, which goal, how many per trip, when to bail out) and shows the best ones. Save any into Strategies. | — |
-| **Replay** | One exact match, animated on the field, with a log of every decision: what, when, what it scored, and why. | — |
-| **Configure** | Hands your setup to Claude to write into the project as the permanent default. | — |
-| **Help** | Explains the whole thing to someone who has never seen it. | — |
-
-### Why some of it is read-only
-
-Actions, point values, timings and ranking-point *requirements* come out of the
-game manual. They are locked in the browser so a stray keystroke in a number box
-cannot quietly change what you are comparing against, and so the numbers live in
-Git rather than in one person's browser. To change them, open **Configure** and
-send your setup to Claude — it edits `js/defaults.js`, which makes it survive a
-Reset and reach anyone who clones the folder.
-
-What you can edit freely: the field layout, your robot, ranking-point
-priorities, strategies, and the variation settings.
-
-## Filling in BioBuzz
-
-Everything marked (TBD) is a placeholder. Fill these in, roughly in this order.
-Rough numbers are fine — the point is comparing plans, and a guess that is wrong
-in the same direction for both plans still gives you the right answer.
-
-1. **Field tab.** Lay out the structures — position, shape, width, depth — and
-   the locations the robot drives to. Drag things on the field, edit sizes in
-   the table. Field is 144 × 144 in. Set `Face°` only where the robot has to
-   arrive pointing a particular way, since it costs turn time.
-2. **Robot tab.** Weight, footprint, track width, wheelbase, motor RPM. The
-   derived readouts tell you your real top speed and how long crossing the field
-   takes.
-3. **Configure tab → tell Claude the rest.** Actions, elements, point values and
-   ranking-point rules are read-only in the app. Download `my-config.json` or
-   copy the ready-made message, then say what the manual actually says:
-   *"scoring high is 8 points, low is 2, add an action «hang specimen» at the
-   submersible taking 2.5 s worth 10 points, the ascent RP needs level 2 held
-   for 5 s."* Claude writes it into `js/defaults.js`.
-4. **Actions tab.** Read it back and sanity-check the numbers.
-5. **Strategies.** Write two or three that differ in exactly one decision.
-6. **Compare.** Run it.
 
 ## Coordinate system — matches the Pedro Pathing Visualizer
 
